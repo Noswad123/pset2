@@ -17,50 +17,65 @@ int main(int argc, string argv[])
     }
 
     key=argv[1];
-    for(int i=0;i<strlen(key);i++){
-
-        if(!isalpha(key[i])){
+    for(int i=0;i<strlen(key);i++)
+    {
+        if(!isalpha(key[i]))
+        {
             return 1;
         }
     }
      plainText=get_string("plain text: ");
-    char cipherArray[strlen(plainText)];
 
-    //printf("cipher text: ");
+    printf("ciphertext: ");
     for(int i=0, length= strlen(plainText); i<length;i++)
     {
-
-        //check for alpha characters
-        if(!isalpha(plainText[i])){
-           cipherArray[i]=plainText[i];
-        //check case
-        }else if(isupper(plainText[i])){
-            //convert ascii to alpha index
-            keyChar=key[keyCounter]-'a';
-            cipherArray[i]=plainText[i]+keyChar;
-
-            keyCounter++;
-            if(keyCounter==strlen(key)){
-                keyCounter=0;
+        if(!isalpha(plainText[i]))          //check for non alphabetical characters
+        {
+            printf("%c", plainText[i]);
+        }
+        else
+        {
+            if(isupper(key[keyCounter]))
+            {
+                keyChar = key[keyCounter] -'A';
+            }else{
+                keyChar=key[keyCounter]-'a';
+            }
+            
+            if(isupper(plainText[i]))         //check case
+            {
+                if(plainText[i] + keyChar >'Z')
+                {
+                    keyChar = (((plainText[i] + keyChar) % 'Z') % 26);        //Wrap ciphertext
+                    //debug comment printf("uppercase char: %c keyChar:%i cipherText: %c\n",plainText[i], newkey, ('A' + newkey - 1));
+                    printf("%c", 'A' + keyChar - 1);
+                }
+                else
+                {
+                    //debug comment printf("upper case char: %c plaintext + keyChar:%i newkey: %i\n",plainText[i], plainText[i]+key, 'A' + key);
+                     printf("%c", plainText[i] + keyChar);
+                }
+            }
+            else
+            {
+                if((plainText[i] + keyChar) >'z')
+                {
+                    keyChar = (((plainText[i] + keyChar) % 'z') % 26);      //Wrap ciphertext
+                    //debugger comment printf("lowercase char: %c newkey:%i cipherText: %c\n",plainText[i], newkey, ('a' + newkey - 1));
+                     printf("%c", 'a' + keyChar - 1);
+                }else{
+                   //debugger coment printf("lowercase char: %c plaintext + key:%i cipherText: %c\n",plainText[i], plainText[i]+key, plainText[i] + key );
+                    printf("%c", plainText[i] + keyChar);
+                }
             }
 
-        }else{
-            keyChar=key[keyCounter]-'a';
-            //convert ascii to alpha index
-            cipherArray[i]=plainText[i]+keyChar;
-
             keyCounter++;
-            if(keyCounter==strlen(key)){
-
+            if(keyCounter==strlen(key))
+            {
                 keyCounter=0;
-
             }
         }
-       printf("%c",cipherArray[i]);
 
-
-        }
-
+    }
     printf("\n");
-
 }

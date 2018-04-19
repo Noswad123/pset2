@@ -6,37 +6,57 @@
 
 int main(int argc, string argv[])
 {
- int key;
+    int key;
+    int newkey=0;
     string plainText;
 
-    if(argc!=2)
+    if (argc != 2)
     {
-        return 1;//or exit(1);
+        return 1;       //or exit(1);
     }
 
-    key=atoi(argv[1]);
+    key = atoi(argv[1]);
 
-     plainText=get_string("plain text: ");
-    char cipherArray[strlen(plainText)];
+     plainText = get_string("plain text: ");
 
-    printf("cipher text: ");
-    for(int i=0, length= strlen(plainText); i<length;i++)
+    printf("ciphertext: ");
+
+    for(int i = 0, length = strlen(plainText); i < length; i++)
     {
-        //check for alpha characters
-        if(!isalpha(plainText[i])){
-           cipherArray[i]=plainText[i];
-        //check case
-        }else if(isupper(plainText[i])){
-            //convert ascii to alpha index
+        newkey = key;
+        if(!isalpha(plainText[i])) //check for non alphabetical characters
+        {
+          //debugger comment printf("special char: %c plaintext + key:%i newkey: %i\n",plainText[i], plainText[i]+key, newkey);
+            printf("%c", plainText[i]);
 
-            cipherArray[i]=plainText[i]+key;
+        }else if(isupper(plainText[i]))     //checking case
+        {
+
+           if(plainText[i] + key >'Z')
+            {
+                newkey = (((plainText[i] + newkey) % 'Z') % 26);        //Wrap ciphertext
+                //debug comment printf("uppercase char: %c newkey:%i cipherText: %c\n",plainText[i], newkey, ('A' + newkey - 1));
+               printf("%c", 'A' + newkey - 1);
+
+            }else{
+                printf("%c", plainText[i] + key);
+                //printf("upper case char: %c plaintext + key:%i newkey: %i\n",plainText[i], plainText[i]+key, 'A' + key);
+            }
 
         }else{
-            //convert ascii to alpha index
-            cipherArray[i]=plainText[i]+key;
 
+            if((plainText[i] + newkey) >'z')
+            {
+                newkey = (((plainText[i] + newkey) % 'z') % 26);      //Wrap ciphertext
+                //debugger comment printf("lowercase char: %c newkey:%i cipherText: %c\n",plainText[i], newkey, ('a' + newkey - 1));
+                 printf("%c", 'a' + newkey - 1);
+
+            }else{
+
+               //debugger coment printf("lowercase char: %c plaintext + key:%i cipherText: %c\n",plainText[i], plainText[i]+key, plainText[i] + key );
+                printf("%c", plainText[i] + key);
+            }
         }
-        printf("%c",cipherArray[i]);
     }
     printf("\n");
 
