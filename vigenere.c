@@ -1,3 +1,9 @@
+/**
+ * Same concerns here...
+ * You did pretty good job. The code looks clean. The only thing missing
+ * is a brief description what the program does.
+*/
+
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
@@ -41,7 +47,7 @@ int main(int argc, string argv[])
             }else{
                 keyChar=key[keyCounter]-'a';
             }
-            
+
             if(isupper(plainText[i]))         //check case
             {
                 if(plainText[i] + keyChar >'Z')

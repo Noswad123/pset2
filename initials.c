@@ -1,3 +1,8 @@
+/**
+ * You did pretty good job. The code looks clean. The only thing missing
+ * is a brief description what the program does.
+*/
+
 #include <cs50.h>
 #include <ctype.h>
 #include <stdio.h>
